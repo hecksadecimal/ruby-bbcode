@@ -114,8 +114,9 @@ module RubyBBCode
         html_open: '<span style="color: %color%;">', html_close: '</span>',
         description: 'Change the color of the text',
         example: '[color=red]This is red[/color]',
-        allow_quick_param: true, allow_between_as_param: false,
+        self_closable: true, allow_quick_param: true, allow_between_as_param: false,
         quick_param_format: /(([a-z]+)|(#[0-9a-f]{6}))/i,
+        quick_param_format_description: 'The parameter \'%param%\' is incorrect, a hex code or lowercase color name is expected',
         param_tokens: [{ token: :color }]
       },
       :youtube => {
@@ -155,6 +156,10 @@ module RubyBBCode
 
     def self.tag_list
       @@tags
+    end
+
+    def self.add_tags(additional_tags = {})
+      @@tags.merge(additional_tags)
     end
   end
 end

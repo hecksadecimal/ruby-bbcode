@@ -15,8 +15,9 @@ module RubyBBCode::Templates
       @node = node
       @tag_definition = node.definition # tag_definition
       @opening_part = "[#{node[:tag]}#{node.allow_params? ? '%param%' : ''}]" + add_whitespace(node[:opening_whitespace])
-      @opening_part = "<span class='bbcode_error' #{BBCodeErrorsTemplate.error_attribute(@node[:errors])}>#{@opening_part}</span>" unless @node[:errors].empty?
+      @opening_part = "<span class='bbcode_error' #{BBCodeErrorsTemplate.error_attribute(@node[:errors])}>#{@opening_part.gsub('[', "&#91;").gsub(']', "&#93;")}</span>" unless @node[:errors].empty?
       @closing_part = "[/#{node[:tag]}]" + add_whitespace(node[:closing_whitespace])
+      @closing_part = "<span class='bbcode_error' #{BBCodeErrorsTemplate.error_attribute(@node[:errors])}>#{@closing_part.gsub('[', "&#91;").gsub(']', "&#93;")}</span>" unless @node[:errors].empty?
     end
 
     def self.convert_text(node, _parent_node)
